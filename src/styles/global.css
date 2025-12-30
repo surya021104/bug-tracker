@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f5f7;
+}
+
+.header {
+  background: #0747a6;
+  color: white;
+  padding: 14px;
+}
+
+.layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background: white;
+  padding: 16px;
+}
+
+.content {
+  padding: 20px;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.details {
+  background: #fafbfc;
+  padding: 15px;
+}
+
+.badge.high {
+  background: orange;
+  padding: 4px 8px;
+  border-radius: 10px;
+}
+
+.badge.unverified {
+  background: red;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 10px;
+}
