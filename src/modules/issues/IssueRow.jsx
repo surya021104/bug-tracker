@@ -10,12 +10,14 @@ export default function IssueRow({ issue, onStatusChange }) {
         <td>{issue.id}</td>
         <td>{issue.title}</td>
         <td>{issue.module}</td>
+
         <td>
           <Status
             value={issue.status}
             onChange={status => onStatusChange(issue.id, status)}
           />
         </td>
+
         <td>{issue.assignee}</td>
         <td>{issue.openedBy}</td>
         <td>{issue.resolvedAt || "—"}</td>
@@ -37,3 +39,4 @@ export default function IssueRow({ issue, onStatusChange }) {
     </>
   );
 }
+
