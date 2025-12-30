@@ -29,3 +29,5 @@ export default function IssueTable({ issues, onStatusChange }) {
     </table>
   );
 }
+
+
