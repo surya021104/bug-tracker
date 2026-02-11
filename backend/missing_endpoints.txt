@@ -1,0 +1,139 @@
+/* DELETE ISSUE */
+app.delete("/api/issues/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    let deletedIssue;
+    if (isMongoConnected) {
+      deletedIssue = await Issue.findOneAndDelete({ id });
+      if (!deletedIssue) {
+        return res.status(404).json({ error: "Issue not found" });
+      }
+      console.log(`🗑️  Deleted issue from MongoDB: ${id}`);
+    } else {
+      const index = inMemoryIssues.findIndex(i => i.id === id);
+      if (index === -1) {
+        return res.status(404).json({ error: "Issue not found" });
+      }
+      deletedIssue = inMemoryIssues[index];
+      inMemoryIssues.splice(index, 1);
+      console.log(`🗑️  Deleted issue from in-memory (remaining: ${inMemoryIssues.length}): ${id}`);
+    }
+
+    // Emit socket event so all connected clients remove the issue
+    emitIssueDeleted(id);
+
+    res.json({ success: true, message: "Issue deleted", id });
+  } catch (err) {
+    console.error("Delete issue failed:", err);
+    res.status(500).json({ error: "Failed to delete issue" });
+  }
+});
+
+/* TOGGLE API KEY STATUS */
+app.put("/api/keys/:id/toggle", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const key = await ApiKey.findById(id);
+    if (!key) {
+      return res.status(404).json({ error: "API key not found" });
+    }
+
+    key.isActive = !key.isActive;
+    await key.save();
+
+    console.log(`🔑 Toggled API key: ${key.appName} → ${key.isActive ? 'Active' : 'Disabled'}`);
+
+    res.json({
+      success: true,
+      isActive: key.isActive,
+      message: `API key ${key.isActive ? 'enabled' : 'disabled'}`
+    });
+
+  } catch (err) {
+    console.error("Toggle API key failed:", err);
+    res.status(500).json({ error: "Failed to toggle API key" });
+  }
+});
+
+/* DELETE API KEY */
+app.delete("/api/keys/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const key = await ApiKey.findByIdAndDelete(id);
+    if (!key) {
+      return res.status(404).json({ error: "API key not found" });
+    }
+
+    console.log(`🗑️  Deleted API key: ${key.appName} (${key.environment})`);
+
+    res.json({
+      success: true,
+      message: "API key deleted"
+    });
+  } catch (err) {
+    console.error("Delete API key failed:", err);
+    res.status(500).json({ error: "Failed to delete API key" });
+  }
+});
+
+/* GENERATE NEW API KEY */
+app.post("/api/keys/generate", async (req, res) => {
+  try {
+    const { appName, environment, rateLimit, owner } = req.body;
+
+    // Validation
+    if (!appName || !appName.trim()) {
+      return res.status(400).json({ error: "App name is required" });
+    }
+
+    if (!['development', 'staging', 'production'].includes(environment)) {
+      return res.status(400).json({ error: "Invalid environment" });
+    }
+
+    // Generate unique API key
+    const apiKey = generateApiKey(environment);
+    const apiKeyPreview = maskApiKey(apiKey);
+
+    // Generate appId from appName (lowercase, no spaces)
+    const appId = appName.toLowerCase().replace(/\s+/g, '-') + '-' + environment;
+
+    // Use provided rate limit or default
+    const finalRateLimit = rateLimit || getDefaultRateLimit(environment);
+
+    const keyData = {
+      apiKey,
+      apiKeyPreview,
+      appName: appName.trim(),
+      appId,
+      environment,
+      isActive: true,
+      rateLimit: finalRateLimit,
+      owner: owner || '',
+      createdAt: new Date()
+    };
+
+    const newKey = await ApiKey.create(keyData);
+
+    console.log(`🔑 Generated new API key for: ${appName} (${environment})`);
+
+    // Return full key ONLY on creation (never again!)
+    res.json({
+      success: true,
+      apiKey: apiKey,                  // Use the raw variable, not the document property
+      apiKeyPreview: apiKeyPreview,
+      appName: newKey.appName,
+      appId: newKey.appId,
+      environment: newKey.environment,
+      rateLimit: newKey.rateLimit,
+      createdAt: newKey.createdAt,
+      message: "Save this key securely - you won't see it again!"
+    });
+
+  } catch (err) {
+    console.error("Generate API key failed:", err);
+    res.status(500).json({ error: "Failed to generate API key" });
+  }
+});

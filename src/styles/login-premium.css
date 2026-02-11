@@ -1,0 +1,305 @@
+/* =========================================================
+   PREMIUM LOGIN PAGE - Constellation Theme
+========================================================= */
+
+.premium-login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+/* =========================================================
+   GLASS CARD - Enhanced & Constellation-Themed
+========================================================= */
+
+.glass-card {
+    position: relative;
+    max-width: 550px;
+    /* Bigger for better usability */
+    width: 100%;
+    padding: 55px 50px;
+    /* More generous padding */
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(96, 165, 250, 0.1);
+    z-index: 10;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(96, 165, 250, 0.2);
+}
+
+.card-glow {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.3) 0%, transparent 70%);
+    pointer-events: none;
+    filter: blur(40px);
+}
+
+/* =========================================================
+   LOGO SECTION - Enhanced
+========================================================= */
+
+.logo-section {
+    text-align: center;
+    margin-bottom: 45px;
+    /* More spacing */
+}
+
+.logo-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 24px;
+}
+
+.app-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(96, 165, 250, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.app-logo:hover {
+    transform: scale(1.05);
+}
+
+.logo-glow-effect {
+    position: absolute;
+    inset: -10px;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.4), transparent);
+    border-radius: 24px;
+    filter: blur(20px);
+    z-index: -1;
+}
+
+.welcome-title {
+    font-size: 34px;
+    /* Slightly bigger */
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.welcome-subtitle {
+    font-size: 16px;
+    /* Bigger for readability */
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* =========================================================
+   FORM - User-Friendly & Enhanced
+========================================================= */
+
+.login-form-premium {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    /* Better spacing */
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-label {
+    display: block;
+    font-size: 15px;
+    /* Bigger labels */
+    font-weight: 600;
+    color: #cbd5e1;
+    margin-bottom: 12px;
+    /* More space */
+    letter-spacing: 0.3px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.premium-input {
+    width: 100%;
+    padding: 18px 50px 18px 18px;
+    /* Bigger, more comfortable */
+    font-size: 16px;
+    color: #f1f5f9;
+    background: rgba(30, 41, 59, 0.6);
+    border: 2px solid rgba(148, 163, 184, 0.3);
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.premium-input::placeholder {
+    color: #64748b;
+}
+
+.premium-input:focus {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15),
+        0 4px 12px rgba(96, 165, 250, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Professional Password Toggle (JP Morgan style) */
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: #60a5fa;
+    background: rgba(96, 165, 250, 0.1);
+}
+
+.password-toggle:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* =========================================================
+   BUTTON - Enhanced CTA
+========================================================= */
+
+.submit-btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+}
+
+.submit-btn:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Loading Spinner */
+.btn-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================================
+   ERROR ALERT - Enhanced
+========================================================= */
+
+.error-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px;
+    color: #fca5a5;
+    font-size: 14px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error-icon {
+    font-size: 18px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+    .glass-card {
+        padding: 45px 35px;
+        max-width: 92%;
+    }
+
+    .welcome-title {
+        font-size: 28px;
+    }
+
+    .app-logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .premium-input {
+        font-size: 15px;
+        padding: 16px 46px 16px 16px;
+    }
+
+    .submit-btn {
+        padding: 15px 22px;
+        font-size: 15px;
+    }
+}

@@ -1,0 +1,18 @@
+# .gitignore for Playwright test artifacts
+
+# Authentication state (contains credentials)
+tests/.auth/
+
+# Test results and reports
+test-results/
+test-results-monitoring.json
+playwright-report/
+playwright-report-monitoring/
+
+# Screenshots and videos
+tests/**/*.png
+tests/**/*.webm
+tests/**/*.mp4
+
+# Trace files
+trace.zip

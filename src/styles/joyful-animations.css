@@ -1,0 +1,291 @@
+/* =========================================================
+   JOYFUL 3D ANIMATIONS FOR TESTERS 🎉
+========================================================= */
+
+/* 1. 3D FLOATING CARDS - Cards gently float and tilt */
+.stat,
+.issue-card {
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stat:hover,
+.issue-card:hover {
+    transform: translateY(-12px) rotateX(5deg) rotateY(5deg) scale(1.02);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+}
+
+/* 2. BOUNCING HOVER - Elements bounce playfully */
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.header-icon-btn:hover,
+.theme-toggle:hover {
+    animation: bounce 0.6s ease-in-out;
+}
+
+/* 3. 3D BUTTON PRESS - Buttons look like they're pressed */
+.btn,
+.btn-primary {
+    transform-style: preserve-3d;
+    transition: all 0.2s ease;
+}
+
+.btn:active,
+.btn-primary:active {
+    transform: translateY(4px) scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 4. RIPPLE CLICK EFFECT - Expanding ripples on click */
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.btn::after,
+.header-icon-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+}
+
+.btn:active::after,
+.header-icon-btn:active::after {
+    animation: ripple 0.6s ease-out;
+}
+
+/* 5. FLOATING ANIMATION - Gentle up/down float */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(2deg);
+    }
+}
+
+.logo-wrapper {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* 6. WIGGLE ON HOVER - Fun wiggle effect */
+@keyframes wiggle {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-3deg);
+    }
+
+    75% {
+        transform: rotate(3deg);
+    }
+}
+
+.notification-badge {
+    animation: wiggle 0.5s ease-in-out infinite;
+}
+
+/* 7. 3D FLIP CARD - Cards can flip */
+.card-flip {
+    perspective: 1000px;
+}
+
+.card-flip-inner {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card-flip:hover .card-flip-inner {
+    transform: rotateY(180deg);
+}
+
+/* 8. PULSE GLOW - Pulsing glow effect */
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
+    }
+}
+
+.btn-primary:hover {
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* 9. SHAKE ON ERROR - Alert shake */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.error {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* 10. CONFETTI CELEBRATION - For successful actions */
+@keyframes confetti {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* 11. MORPHING BLOB - Animated background blob */
+@keyframes morph {
+
+    0%,
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+}
+
+.sidebar::before {
+    animation: morph 8s ease-in-out infinite, sidebarGlow 8s ease-in-out infinite;
+}
+
+/* 12. PARALLAX LAYERS - Different scroll speeds */
+.parallax-layer-1 {
+    transform: translateZ(-1px) scale(2);
+}
+
+.parallax-layer-2 {
+    transform: translateZ(-2px) scale(3);
+}
+
+/* 13. JELLO HOVER - Jello wobble effect */
+@keyframes jello {
+
+    0%,
+    100% {
+        transform: scale(1, 1);
+    }
+
+    30% {
+        transform: scale(1.25, 0.75);
+    }
+
+    40% {
+        transform: scale(0.75, 1.25);
+    }
+
+    50% {
+        transform: scale(1.15, 0.85);
+    }
+
+    65% {
+        transform: scale(0.95, 1.05);
+    }
+
+    75% {
+        transform: scale(1.05, 0.95);
+    }
+}
+
+.user-avatar:hover {
+    animation: jello 0.8s ease-in-out;
+}
+
+/* 14. RAINBOW TEXT - Animated rainbow gradient text */
+@keyframes rainbowText {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.rainbow-text {
+    background: linear-gradient(90deg, #ff0080, #ff8c00, #40e0d0, #ff0080);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: rainbowText 3s ease infinite;
+}
+
+/* 15. SPINNING SUCCESS - Spin and scale on success */
+@keyframes spinSuccess {
+    0% {
+        transform: scale(0) rotate(0deg);
+    }
+
+    50% {
+        transform: scale(1.2) rotate(180deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+.success-icon {
+    animation: spinSuccess 0.6s ease-out;
+}

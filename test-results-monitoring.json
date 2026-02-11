@@ -1,0 +1,353 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\user\\Desktop\\bug tracker\\bug tracker\\bug tracker\\bug-tracker\\playwright.monitor.config.js",
+    "rootDir": "C:/Users/user/Desktop/bug tracker/bug tracker/bug tracker/bug-tracker/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 600000,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/user/Desktop/bug tracker/bug tracker/bug tracker/bug-tracker/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "setup",
+        "name": "setup",
+        "testDir": "C:/Users/user/Desktop/bug tracker/bug tracker/bug tracker/bug-tracker/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.setup\\.js/"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/user/Desktop/bug tracker/bug tracker/bug tracker/bug-tracker/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/user/Desktop/bug tracker/bug tracker/bug tracker/bug-tracker/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/e2e-monitoring/**/*.spec.js"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report-monitoring",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results-monitoring.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.0",
+    "workers": 2,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:5173",
+      "reuseExistingServer": true,
+      "timeout": 120000,
+      "stdout": "ignore",
+      "stderr": "pipe"
+    }
+  },
+  "suites": [
+    {
+      "title": "auth.setup.js",
+      "file": "auth.setup.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "authenticate",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "setup",
+              "projectName": "setup",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "interrupted",
+                  "duration": 1397,
+                  "error": {
+                    "message": "Error: browserContext.close: Test ended.\nBrowser logs:\n\n<launching> C:\\Users\\user\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1208\\chrome-headless-shell-win64\\chrome-headless-shell.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\\Users\\user\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-0kmlNz --remote-debugging-pipe --no-startup-window\n<launched> pid=8384\n[pid=8384][err] [0128/094620.591:INFO:CONSOLE:733] \"[vite] connecting...\", source: http://localhost:5173/@vite/client (733)\n[pid=8384][err] [0128/094620.605:INFO:CONSOLE:827] \"[vite] connected.\", source: http://localhost:5173/@vite/client (827)\n[pid=8384][err] [0128/094620.770:INFO:CONSOLE:20103] \"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold\", source: http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=f11ceec7 (20103)\n[pid=8384][err] [0128/094620.796:INFO:CONSOLE:25] \"🔍 Button Monitor Active - Tracking navigation failures after form submission\", source: http://localhost:5173/src/utils/buttonMonitor.js (25)\n[pid=8384] <gracefully close start>",
+                    "stack": "Error: browserContext.close: Test ended.\nBrowser logs:\n\n<launching> C:\\Users\\user\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1208\\chrome-headless-shell-win64\\chrome-headless-shell.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\\Users\\user\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-0kmlNz --remote-debugging-pipe --no-startup-window\n<launched> pid=8384\n[pid=8384][err] [0128/094620.591:INFO:CONSOLE:733] \"[vite] connecting...\", source: http://localhost:5173/@vite/client (733)\n[pid=8384][err] [0128/094620.605:INFO:CONSOLE:827] \"[vite] connected.\", source: http://localhost:5173/@vite/client (827)\n[pid=8384][err] [0128/094620.770:INFO:CONSOLE:20103] \"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold\", source: http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=f11ceec7 (20103)\n[pid=8384][err] [0128/094620.796:INFO:CONSOLE:25] \"🔍 Button Monitor Active - Tracking navigation failures after form submission\", source: http://localhost:5173/src/utils/buttonMonitor.js (25)\n[pid=8384] <gracefully close start>"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserContext.close: Test ended.\nBrowser logs:\n\n<launching> C:\\Users\\user\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1208\\chrome-headless-shell-win64\\chrome-headless-shell.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=C:\\Users\\user\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-0kmlNz --remote-debugging-pipe --no-startup-window\n<launched> pid=8384\n[pid=8384][err] [0128/094620.591:INFO:CONSOLE:733] \"[vite] connecting...\", source: http://localhost:5173/@vite/client (733)\n[pid=8384][err] [0128/094620.605:INFO:CONSOLE:827] \"[vite] connected.\", source: http://localhost:5173/@vite/client (827)\n[pid=8384][err] [0128/094620.770:INFO:CONSOLE:20103] \"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold\", source: http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=f11ceec7 (20103)\n[pid=8384][err] [0128/094620.796:INFO:CONSOLE:25] \"🔍 Button Monitor Active - Tracking navigation failures after form submission\", source: http://localhost:5173/src/utils/buttonMonitor.js (25)\n[pid=8384] <gracefully close start>"
+                    }
+                  ],
+                  "stdout": [
+                    {
+                      "text": "🔐 Setting up authentication...\n"
+                    },
+                    {
+                      "text": "⚠️  No login form found - app might not require authentication or already logged in\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-01-28T04:16:20.089Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "f376efe52c54b1a876fd-9d03a3bb502e264caa3f",
+          "file": "auth.setup.js",
+          "line": 15,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "e2e-monitoring\\dashboard.spec.js",
+      "file": "e2e-monitoring/dashboard.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Dashboard & Reports Monitoring",
+          "file": "e2e-monitoring/dashboard.spec.js",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load dashboard without errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e50ebbdae6a465f912cb-c5ac526ca07f0de327f9",
+              "file": "e2e-monitoring/dashboard.spec.js",
+              "line": 17,
+              "column": 5
+            },
+            {
+              "title": "should measure dashboard performance",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e50ebbdae6a465f912cb-fdc0b15d441b76fdf432",
+              "file": "e2e-monitoring/dashboard.spec.js",
+              "line": 53,
+              "column": 5
+            },
+            {
+              "title": "should navigate to reports page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e50ebbdae6a465f912cb-b3138019b11804daa9ec",
+              "file": "e2e-monitoring/dashboard.spec.js",
+              "line": 83,
+              "column": 5
+            },
+            {
+              "title": "should display issues list",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e50ebbdae6a465f912cb-1bf35e88fcb2da95cc74",
+              "file": "e2e-monitoring/dashboard.spec.js",
+              "line": 114,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "e2e-monitoring\\login.spec.js",
+      "file": "e2e-monitoring/login.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Login Flow Monitoring",
+          "file": "e2e-monitoring/login.spec.js",
+          "line": 14,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display login page correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "89898e0fc3a811b23763-1cba5d027ca626b35505",
+              "file": "e2e-monitoring/login.spec.js",
+              "line": 50,
+              "column": 5
+            },
+            {
+              "title": "should show validation for empty credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "89898e0fc3a811b23763-f5f07bafc4b6dc759960",
+              "file": "e2e-monitoring/login.spec.js",
+              "line": 76,
+              "column": 5
+            },
+            {
+              "title": "should handle invalid credentials gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "89898e0fc3a811b23763-7d05ef4fc700c5f7760e",
+              "file": "e2e-monitoring/login.spec.js",
+              "line": 105,
+              "column": 5
+            },
+            {
+              "title": "should successfully login with valid credentials",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "89898e0fc3a811b23763-91ca346ca60293da7d2e",
+              "file": "e2e-monitoring/login.spec.js",
+              "line": 148,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-01-28T04:16:18.257Z",
+    "duration": 3924.0449999999996,
+    "expected": 0,
+    "skipped": 9,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

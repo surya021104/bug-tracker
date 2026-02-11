@@ -1,0 +1,153 @@
+/* Floating Action Bar - Enhanced Meta/Spotify Style */
+.floating-action-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 0 32px;
+    animation: bounceIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(5px) scale(1.02);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.action-bar-content {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    border-radius: 16px;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 12px 28px rgba(102, 126, 234, 0.35);
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-bar-left,
+.action-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.selected-count {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.selected-count .count {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+}
+
+.selected-count .label {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-clear,
+.btn-select-all {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-clear:hover,
+.btn-select-all:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-delete-bulk {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #ef4444;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-delete-bulk:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+}
+
+.btn-clear:active,
+.btn-select-all:active,
+.btn-delete-bulk:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .floating-action-bar {
+        padding: 0 16px;
+    }
+
+    .action-bar-content {
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px 16px;
+    }
+
+    .action-bar-left,
+    .action-bar-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .btn-clear,
+    .btn-select-all,
+    .btn-delete-bulk {
+        flex: 1;
+    }
+}
