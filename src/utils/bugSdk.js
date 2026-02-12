@@ -13,7 +13,7 @@
  *   });
  */
 
-const DEFAULT_ENDPOINT = "http://localhost:4000/api/bugs/ingest";
+const DEFAULT_ENDPOINT = (import.meta.env.VITE_API_URL || "http://localhost:4000") + "/api/bugs/ingest";
 
 /**
  * Initialize global bug tracking configuration.

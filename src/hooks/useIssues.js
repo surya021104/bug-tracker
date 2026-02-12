@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:4000");
+const socket = io(import.meta.env.VITE_API_URL || "http://localhost:4000");
 
 export default function useIssues() {
   const [issues, setIssues] = useState([]);
@@ -10,7 +10,7 @@ export default function useIssues() {
   // 🔁 FETCH + DEDUPE (FALLBACK)
   const loadIssues = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/issues");
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues`);
       if (!res.ok) throw new Error("API failed");
 
       const backendIssues = await res.json();
@@ -91,7 +91,7 @@ export default function useIssues() {
   // AI REPORT GENERATION - Calls AI to generate full bug report from title
   const generateAIReport = async (title) => {
     try {
-      const res = await fetch("http://localhost:4000/api/bugs/generate-report", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/bugs/generate-report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plainTextDescription: title })
@@ -135,7 +135,7 @@ export default function useIssues() {
       console.log('fullIssueData:', fullIssueData);
 
       // POST to backend
-      const res = await fetch("http://localhost:4000/api/issues", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(fullIssueData)
@@ -194,7 +194,7 @@ export default function useIssues() {
 
     // Save to backend
     try {
-      await fetch(`http://localhost:4000/api/issues/${id}/status`, {
+      await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues/${id}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status, currentUser })
@@ -212,7 +212,7 @@ export default function useIssues() {
     setIssues(prev => prev.filter(issue => issue.id !== id));
 
     try {
-      const res = await fetch(`http://localhost:4000/api/issues/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues/${id}`, {
         method: 'DELETE'
       });
 

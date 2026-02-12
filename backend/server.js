@@ -50,8 +50,60 @@ const app = express();
 const server = http.createServer(app);
 initSocket(server);
 
-app.use(cors({ origin: "*" }));
+/* ===============================
+   CORS CONFIGURATION (PRODUCTION-READY)
+================================ */
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:5173",
+  process.env.FRONTEND_URL_PROD,
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "http://localhost:5174"
+].filter(Boolean); // Remove undefined values
+
+console.log("🔒 Allowed CORS origins:", allowedOrigins);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, Postman, or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log(`⚠️ CORS blocked origin: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key']
+}));
+
 app.use(express.json());
+
+/* ===============================
+   HEALTH CHECK ENDPOINT
+================================ */
+
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "BugBuddy Backend API",
+    timestamp: new Date().toISOString(),
+    mongoConnected: isMongoConnected
+  });
+});
+
+app.get("/health", (req, res) => {
+  res.json({
+    status: "healthy",
+    mongodb: isMongoConnected ? "connected" : "disconnected",
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
+  });
+});
 
 /* ===============================
    STORAGE FALLBACK
@@ -680,6 +732,10 @@ app.get("/api/reports/apps", async (req, res) => {
    SERVER START
 ================================ */
 
-server.listen(4000, () => {
-  console.log("🚀 Server running on http://localhost:4000");
+const PORT = process.env.PORT || 4000;
+
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔒 CORS enabled for: ${allowedOrigins.join(', ')}`);
 });
