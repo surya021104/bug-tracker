@@ -1,17 +1,11 @@
 import { useState, useEffect } from 'react';
+import { API_URL } from '../config/api';
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
-
-/**
- * Custom hook for API key management
- * Handles fetching, creating, toggling, and deleting API keys
- */
 export default function useApiKeys() {
     const [apiKeys, setApiKeys] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch all API keys
     const fetchApiKeys = async () => {
         try {
             setLoading(true);
@@ -28,7 +22,6 @@ export default function useApiKeys() {
         }
     };
 
-    // Generate new API key
     const generateApiKey = async (keyData) => {
         try {
             const response = await fetch(`${API_URL}/api/keys/generate`, {
@@ -41,7 +34,7 @@ export default function useApiKeys() {
                 throw new Error(errorData.error || 'Failed to generate API key');
             }
             const newKey = await response.json();
-            await fetchApiKeys(); // Refresh list
+            await fetchApiKeys();
             return newKey;
         } catch (err) {
             console.error('Generate API key error:', err);
@@ -49,7 +42,6 @@ export default function useApiKeys() {
         }
     };
 
-    // Toggle API key status (enable/disable)
     const toggleApiKey = async (id) => {
         try {
             const response = await fetch(`${API_URL}/api/keys/${id}/toggle`, {
@@ -57,7 +49,6 @@ export default function useApiKeys() {
             });
             if (!response.ok) throw new Error('Failed to toggle API key');
             const result = await response.json();
-            // Update local state
             setApiKeys(prevKeys =>
                 prevKeys.map(key =>
                     key._id === id ? { ...key, isActive: result.isActive } : key
@@ -70,14 +61,12 @@ export default function useApiKeys() {
         }
     };
 
-    // Delete API key
     const deleteApiKey = async (id) => {
         try {
             const response = await fetch(`${API_URL}/api/keys/${id}`, {
                 method: 'DELETE'
             });
             if (!response.ok) throw new Error('Failed to delete API key');
-            // Remove from local state
             setApiKeys(prevKeys => prevKeys.filter(key => key._id !== id));
             return await response.json();
         } catch (err) {
@@ -86,7 +75,6 @@ export default function useApiKeys() {
         }
     };
 
-    // Fetch API keys on mount
     useEffect(() => {
         fetchApiKeys();
     }, []);
