@@ -55,18 +55,26 @@ initSocket(server);
 ================================ */
 
 const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:5173",
-  process.env.FRONTEND_URL_PROD,
+  "https://bugtracker-alpha.vercel.app",  // ✅ Your production frontend
   "http://localhost:5173",
   "http://localhost:3000",
   "http://localhost:3003",
   "http://localhost:5174"
-].filter(Boolean); // Remove undefined values
+];
 
 console.log("🔒 Allowed CORS origins:", allowedOrigins);
 
 app.use(cors({
-  origin: true,
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'],
