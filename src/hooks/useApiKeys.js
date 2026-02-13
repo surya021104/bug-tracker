@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
 /**
  * Custom hook for API key management
  * Handles fetching, creating, toggling, and deleting API keys
@@ -13,9 +15,8 @@ export default function useApiKeys() {
     const fetchApiKeys = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/keys`);
+            const response = await fetch(`${API_URL}/api/keys`);
             if (!response.ok) throw new Error('Failed to fetch API keys');
-
             const data = await response.json();
             setApiKeys(data);
             setError(null);
@@ -30,17 +31,15 @@ export default function useApiKeys() {
     // Generate new API key
     const generateApiKey = async (keyData) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/keys/generate`, {
+            const response = await fetch(`${API_URL}/api/keys/generate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(keyData)
             });
-
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.error || 'Failed to generate API key');
             }
-
             const newKey = await response.json();
             await fetchApiKeys(); // Refresh list
             return newKey;
@@ -53,21 +52,17 @@ export default function useApiKeys() {
     // Toggle API key status (enable/disable)
     const toggleApiKey = async (id) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/keys/${id}/toggle`, {
+            const response = await fetch(`${API_URL}/api/keys/${id}/toggle`, {
                 method: 'PUT'
             });
-
             if (!response.ok) throw new Error('Failed to toggle API key');
-
             const result = await response.json();
-
             // Update local state
             setApiKeys(prevKeys =>
                 prevKeys.map(key =>
                     key._id === id ? { ...key, isActive: result.isActive } : key
                 )
             );
-
             return result;
         } catch (err) {
             console.error('Toggle API key error:', err);
@@ -78,15 +73,12 @@ export default function useApiKeys() {
     // Delete API key
     const deleteApiKey = async (id) => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/keys/${id}`, {
+            const response = await fetch(`${API_URL}/api/keys/${id}`, {
                 method: 'DELETE'
             });
-
             if (!response.ok) throw new Error('Failed to delete API key');
-
             // Remove from local state
             setApiKeys(prevKeys => prevKeys.filter(key => key._id !== id));
-
             return await response.json();
         } catch (err) {
             console.error('Delete API key error:', err);
