@@ -11,6 +11,8 @@
  */
 
 import http from 'http';
+import https from 'https';
+import { URL } from 'url';
 
 class BugTrackerReporter {
     constructor() {
@@ -71,9 +73,19 @@ class BugTrackerReporter {
 
     sendRequest(data) {
         return new Promise((resolve, reject) => {
+            const backendUrl = process.env.BACKEND_URL || process.env.BUG_TRACKER_API_URL || 'http://localhost:4000';
+            let url;
+            try {
+                url = new URL(backendUrl);
+            } catch (e) {
+                console.error(`   ⚠️ Invalid BACKEND_URL: ${backendUrl}`);
+                return resolve();
+            }
+
+            const protocol = url.protocol === 'https:' ? https : http;
             const options = {
-                hostname: 'localhost',
-                port: 4000,
+                hostname: url.hostname,
+                port: url.port || (url.protocol === 'https:' ? 443 : 80),
                 path: '/api/issues',
                 method: 'POST',
                 headers: {
@@ -81,23 +93,28 @@ class BugTrackerReporter {
                 }
             };
 
-            const req = http.request(options, (res) => {
+            const req = protocol.request(options, (res) => {
                 let body = '';
                 res.on('data', (chunk) => body += chunk);
                 res.on('end', () => {
                     if (res.statusCode >= 200 && res.statusCode < 300) {
-                        console.log(`   ✅ Bug reported: ${JSON.parse(body).issue?.id}`);
+                        try {
+                            const responseData = JSON.parse(body);
+                            console.log(`   ✅ Bug reported: ${responseData.issue?.id || 'Success'}`);
+                        } catch (e) {
+                            console.log(`   ✅ Bug reported successfully`);
+                        }
                         resolve();
                     } else {
                         console.error(`   ⚠️ Failed to report bug: ${res.statusCode} ${body}`);
-                        resolve(); // Resolve anyway to not break test run
+                        resolve();
                     }
                 });
             });
 
             req.on('error', (e) => {
-                console.error(`   ⚠️ Bug Tracker unreachable: ${e.message}`);
-                resolve(); // Resolve anyway
+                console.error(`   ⚠️ Bug Tracker unreachable (${backendUrl}): ${e.message}`);
+                resolve();
             });
 
             req.write(JSON.stringify(data));

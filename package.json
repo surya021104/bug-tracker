@@ -11,7 +11,8 @@
     "test:monitor": "playwright test --config=playwright.monitor.config.js",
     "test:monitor:ui": "playwright test --config=playwright.monitor.config.js --ui",
     "test:monitor:headed": "playwright test --config=playwright.monitor.config.js --headed",
-    "test:monitor:report": "playwright show-report playwright-report-monitoring"
+    "test:monitor:report": "playwright show-report playwright-report-monitoring",
+    "test:monitor:prod": "playwright test --config=playwright.monitor.config.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

@@ -7,7 +7,7 @@ export default function ApplicationsPage() {
   const analyzeApp = async (url) => {
     try {
       const res = await fetch(
-        `http://localhost:4000/api/analyze?url=${encodeURIComponent(url)}`
+        `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/analyze?url=${encodeURIComponent(url)}`
       );
 
       const data = await res.json();

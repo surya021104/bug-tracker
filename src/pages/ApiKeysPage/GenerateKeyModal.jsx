@@ -173,7 +173,7 @@ export default function GenerateKeyModal({ isOpen, onClose, onGenerate }) {
 <script>
   window.BUG_TRACKER_CONFIG = {
     apiKey: "${generatedKey.apiKey}",
-    endpoint: "http://localhost:4000/api/bugs/ingest",
+    endpoint: "${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/bugs/ingest",
     environment: "${generatedKey.environment}"
   };
 </script>`}
@@ -187,7 +187,7 @@ export default function GenerateKeyModal({ isOpen, onClose, onGenerate }) {
 
 initBugTracker({
   apiKey: "${generatedKey.apiKey}",
-  endpoint: "http://localhost:4000/api/bugs/ingest",
+  endpoint: "${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/bugs/ingest",
   environment: "${generatedKey.environment}",
   getUser: () => window.currentUser || null,
 });`}

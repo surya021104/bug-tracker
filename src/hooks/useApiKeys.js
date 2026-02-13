@@ -13,7 +13,7 @@ export default function useApiKeys() {
     const fetchApiKeys = async () => {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:4000/api/keys');
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/keys`);
             if (!response.ok) throw new Error('Failed to fetch API keys');
 
             const data = await response.json();
@@ -30,7 +30,7 @@ export default function useApiKeys() {
     // Generate new API key
     const generateApiKey = async (keyData) => {
         try {
-            const response = await fetch('http://localhost:4000/api/keys/generate', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/keys/generate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(keyData)
@@ -53,7 +53,7 @@ export default function useApiKeys() {
     // Toggle API key status (enable/disable)
     const toggleApiKey = async (id) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/keys/${id}/toggle`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/keys/${id}/toggle`, {
                 method: 'PUT'
             });
 
@@ -78,7 +78,7 @@ export default function useApiKeys() {
     // Delete API key
     const deleteApiKey = async (id) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/keys/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/keys/${id}`, {
                 method: 'DELETE'
             });
 

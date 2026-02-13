@@ -10,7 +10,7 @@ class ButtonMonitor {
         this.rapidClickWindow = 2000; // 2 seconds
         this.responseTimeout = 1000; // Wait 1 second for button to do something
         this.enabled = true;
-        this.apiEndpoint = 'http://localhost:4000/api/bugs/ingest';
+        this.apiEndpoint = (import.meta.env.VITE_API_URL || 'http://localhost:4000') + '/api/bugs/ingest';
     }
 
     /**

@@ -19,7 +19,7 @@ export default function SettingsPage({ currentUser }) {
     const fetchSettings = async () => {
         try {
             const userId = currentUser?.empId || 'default-user';
-            const res = await fetch(`http://localhost:4000/api/settings/${userId}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/settings/${userId}`);
             const data = await res.json();
             setSettings(data);
         } catch (err) {
@@ -33,7 +33,7 @@ export default function SettingsPage({ currentUser }) {
         setSaving(true);
         try {
             const userId = currentUser?.empId || 'default-user';
-            const res = await fetch(`http://localhost:4000/api/settings/${userId}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/settings/${userId}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(settings)

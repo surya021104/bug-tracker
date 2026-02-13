@@ -16,7 +16,7 @@ export default function BugBuddyPage({ currentUser }) {
         fetchBugBuddyBugs();
 
         // Setup WebSocket for real-time updates
-        const socket = io('http://localhost:4000', { transports: ['websocket'] });
+        const socket = io(import.meta.env.VITE_API_URL || 'http://localhost:4000', { transports: ['websocket'] });
 
         socket.on('newBug', (newBug) => {
             if (newBug.createdBy === 'BugBuddy') {
@@ -34,7 +34,7 @@ export default function BugBuddyPage({ currentUser }) {
 
     const fetchBugBuddyBugs = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/issues');
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues`);
             const allIssues = await response.json();
 
             // Filter for BugBuddy bugs only
@@ -52,7 +52,7 @@ export default function BugBuddyPage({ currentUser }) {
 
     const handleStatusChange = async (id, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/issues/${id}/status`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues/${id}/status`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus, currentUser })
@@ -71,7 +71,7 @@ export default function BugBuddyPage({ currentUser }) {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/issues/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues/${id}`, {
                 method: 'DELETE',
             });
 
@@ -112,7 +112,7 @@ export default function BugBuddyPage({ currentUser }) {
         try {
             // Delete all selected issues
             await Promise.all(selectedIssues.map(id =>
-                fetch(`http://localhost:4000/api/issues/${id}`, { method: 'DELETE' })
+                fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues/${id}`, { method: 'DELETE' })
             ));
 
             // Optimistic UI update

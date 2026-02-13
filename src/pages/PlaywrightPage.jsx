@@ -14,7 +14,7 @@ export default function PlaywrightPage({ currentUser }) {
         fetchPlaywrightBugs();
 
         // Setup WebSocket for real-time updates
-        const socket = io('http://localhost:4000', { transports: ['websocket'] });
+        const socket = io(import.meta.env.VITE_API_URL || 'http://localhost:4000', { transports: ['websocket'] });
 
         socket.on('newBug', (newBug) => {
             if (newBug.createdBy === 'Playwright') {
@@ -27,7 +27,7 @@ export default function PlaywrightPage({ currentUser }) {
 
     const fetchPlaywrightBugs = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/issues');
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues`);
             const allIssues = await response.json();
 
             // Filter for Playwright bugs only
@@ -45,7 +45,7 @@ export default function PlaywrightPage({ currentUser }) {
 
     const handleStatusChange = async (id, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/issues/${id}/status`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/issues/${id}/status`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus, currentUser })

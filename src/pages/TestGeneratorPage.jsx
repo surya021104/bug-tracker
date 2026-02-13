@@ -54,7 +54,7 @@ export default function TestGeneratorPage() {
             const formData = new FormData();
             formData.append('excelFile', file);
 
-            const response = await fetch('http://localhost:4000/api/test-cases/parse', {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/test-cases/parse`, {
                 method: 'POST',
                 body: formData
             });

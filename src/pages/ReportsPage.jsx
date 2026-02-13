@@ -15,7 +15,7 @@ import '../styles/reports.css';
 
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:4000");
+const socket = io(import.meta.env.VITE_API_URL || "http://localhost:4000");
 
 // Live Activity Feed Component
 const LiveActivityFeed = () => {
@@ -137,7 +137,7 @@ export default function ReportsPage() {
 
     // Fetch available apps for filter dropdown
     useEffect(() => {
-        fetch('http://localhost:4000/api/reports/apps')
+        fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/reports/apps`)
             .then(r => r.json())
             .then(apps => setAvailableApps(apps))
             .catch(() => setAvailableApps([]));
@@ -151,7 +151,7 @@ export default function ReportsPage() {
             try {
                 const params = new URLSearchParams({ timeRange });
                 if (appFilter && appFilter !== 'all') params.append('appName', appFilter);
-                const response = await fetch(`http://localhost:4000/api/reports/analytics?${params}`);
+                const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/reports/analytics?${params}`);
 
                 if (!response.ok) {
                     throw new Error(`Analytics API failed: ${response.status}`);
@@ -177,7 +177,7 @@ export default function ReportsPage() {
 
     const handleExport = async (format) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/reports/export?format=${format}&timeRange=${timeRange}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api/reports/export?format=${format}&timeRange=${timeRange}`);
             if (format === 'csv' || format === 'excel' || format === 'xlsx' || format === 'xml') {
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);

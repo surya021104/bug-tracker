@@ -59,26 +59,18 @@ const allowedOrigins = [
   process.env.FRONTEND_URL_PROD,
   "http://localhost:5173",
   "http://localhost:3000",
+  "http://localhost:3003",
   "http://localhost:5174"
 ].filter(Boolean); // Remove undefined values
 
 console.log("🔒 Allowed CORS origins:", allowedOrigins);
 
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps, Postman, or curl requests)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      console.log(`⚠️ CORS blocked origin: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key']
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'],
+  optionsSuccessStatus: 200
 }));
 
 app.use(express.json());
@@ -252,6 +244,15 @@ app.post("/api/bugs/ingest", async (req, res) => {
       existing.occurrences = (existing.occurrences || 1) + 1;
       existing.lastOccurrence = new Date();
 
+      // Don't report our own bug reporting errors
+      const errorMessage = (signal.message || signal.error?.message || '').toLowerCase();
+      if (errorMessage.includes('bug tracker') ||
+        errorMessage.includes('bug report failed') ||
+        errorMessage.includes('failed to send bug report')) {
+        console.log(`🚫 Ignoring self-reporting error for existing bug: ${existing.id}`);
+        return res.json({ status: "ignored_self_report", bugId: existing.id });
+      }
+
       // Approximate impact counters
       if (userId) {
         existing.affectedUsers = (existing.affectedUsers || 0) + 1;
@@ -297,6 +298,15 @@ app.post("/api/bugs/ingest", async (req, res) => {
       affectedSessions: sessionId ? 1 : 0,
       ...appMeta
     };
+
+    // Don't create new bugs for self-reporting errors
+    const errorMessage = (signal.message || signal.error?.message || '').toLowerCase();
+    if (errorMessage.includes('bug tracker') ||
+      errorMessage.includes('bug report failed') ||
+      errorMessage.includes('failed to send bug report')) {
+      console.log(`🚫 Ignoring self-reporting error for new bug: ${bug.id}`);
+      return res.json({ status: "ignored_self_report" });
+    }
 
     if (isMongoConnected) await Issue.create(bug);
     else inMemoryIssues.unshift(bug);
@@ -736,7 +746,7 @@ const PORT = process.env.PORT || 4000;
 
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  
+
   console.log(`📡 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔒 CORS enabled for: ${allowedOrigins.join(', ')}`);
 });

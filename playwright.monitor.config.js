@@ -38,7 +38,7 @@ export default defineConfig({
     // Shared settings for all tests
     use: {
         // Base URL for the application
-        baseURL: 'http://localhost:5173',
+        baseURL: process.env.FRONTEND_URL || 'http://localhost:5173',
 
         // Capture trace on first retry (useful for debugging)
         trace: 'on-first-retry',
@@ -105,7 +105,7 @@ export default defineConfig({
     // Web server configuration
     // Starts your app before running tests
     webServer: {
-        command: 'npm run dev',
+        command: process.env.FRONTEND_URL ? 'echo "Using deployed frontend at $FRONTEND_URL"' : 'npm run dev',
         url: 'http://localhost:5173',
         reuseExistingServer: true, // Don't restart if already running
         timeout: 120000, // 2 minutes to start
